@@ -135,7 +135,8 @@ export class AppComponent {
   }
 
   ngAfterViewInit() {
-    this.createTree();
+    //this.createTree();
+    this.test();
   }
 
   appendSVG() {
@@ -243,16 +244,19 @@ export class AppComponent {
       .enter()
       .insert("path", "g")
       .attr("class", "link")
-      .attr("d", function(d:any) {
-        console.log(d);
-        return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y;
-      })
+      .attr("d", 
+        d3.linkHorizontal()
+          .x(function(d:any) {return d.x;})
+          .y(function(d:any) {return d.y;})
+      )
       .attr("id", function(pLink:any) {
         lbs[pLink.source.name] = lbs[pLink.source.name] || [];
         lbs[pLink.source.name].push(d3.select(pLink));
         return pLink.source.name + "-" + pLink.target.name;
       })
-      .style("stroke", "#FFBB33")
+  }
+
+  test() {
   }
 
 }
